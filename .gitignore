@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Node / TS
+node_modules/
+*.tsbuildinfo
+dist/
+build/
+
+# Swift
+.build/
+Packages/
+xcuserdata/
+*.xcodeproj/xcuserdata/
+DerivedData/
+
+# Kotlin / Gradle
+.gradle/
+.idea/
+build/
+*.iml
+local.properties
+
+# Generated (regenerate via `make codegen`)
+typescript/src/generated/
+swift/Generated/
+kotlin/src/main/kotlin/com/lap/schemas/generated/
+
+# Env
+.env
+.DS_Store
