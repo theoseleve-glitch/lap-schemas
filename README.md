@@ -84,7 +84,7 @@ A breaking Pydantic change that can't cleanly codegen to all three targets there
 
 ## Versioning
 
-Calver: `YYYY.MM.N`. Bump `N` on every release, `M` on the month rollover. Breaking changes require a new major (`vN`) package namespace — new models live in `python/src/lap_schemas/vN/`, old ones stay unchanged until all consumers migrate.
+Calver: `YYYY.MM.N`. Full policy — what counts as breaking, when `vN` bumps, consumer migration — lives in [`VERSIONING.md`](VERSIONING.md).
 
 ## ADRs
 
