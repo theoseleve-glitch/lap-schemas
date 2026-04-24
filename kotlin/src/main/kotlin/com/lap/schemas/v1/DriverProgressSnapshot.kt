@@ -1,5 +1,7 @@
 package com.lap.schemas.v1
 
+import kotlinx.serialization.Serializable
+
 /**
  * Ten-axis driver skill rollup captured over a window, mirroring
  * `lap_schemas.v1.driver_progress_snapshot.DriverProgressSnapshot`.
@@ -12,6 +14,7 @@ package com.lap.schemas.v1
  * [overallConfidence] + [percentileVsCohort] in [0, 1]) re-validated
  * server-side per ADR-012.
  */
+@Serializable
 data class DriverProgressSnapshot(
     val id: UUID7,
     val driverId: UUID7,

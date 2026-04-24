@@ -1,5 +1,7 @@
 package com.lap.schemas.v1
 
+import kotlinx.serialization.Serializable
+
 /**
  * Hand-typed stub mirroring `lap_schemas.v1.session.SessionManifest`
  * (Pydantic v2). Codegen isn't wired yet; this keeps mobile unblocked.
@@ -16,6 +18,7 @@ package com.lap.schemas.v1
 /** Placeholder UUIDv7 alias until T039 introduces validation. */
 typealias UUID7 = String
 
+@Serializable
 data class SessionManifest(
     val sessionId: UUID7,
     val driverId: UUID7,

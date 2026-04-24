@@ -1,5 +1,7 @@
 package com.lap.schemas.v1
 
+import kotlinx.serialization.Serializable
+
 /**
  * Consumer-side mirror of `lap_schemas.v1.weakness_episode.WeaknessEpisode`.
  *
@@ -16,6 +18,7 @@ package com.lap.schemas.v1
  * [confidenceDecayPerDay] >= 0, [sessionsAffected] max length 50.
  * Re-validated server-side per ADR-012 until T038.
  */
+@Serializable
 data class WeaknessEpisode(
     val id: UUID7,
     val driverId: UUID7,

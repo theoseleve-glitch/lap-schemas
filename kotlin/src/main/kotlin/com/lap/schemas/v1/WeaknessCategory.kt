@@ -1,18 +1,21 @@
 package com.lap.schemas.v1
 
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+
 /**
  * Top-level weakness category, mirroring
  * `lap_schemas.v1.weakness_category.WeaknessCategory` (Python StrEnum).
- * Shared by [WeaknessEpisode] and the library rule registry. @SerialName
- * wiring lands in T038.
+ * Shared by [WeaknessEpisode] and the library rule registry.
  */
+@Serializable
 enum class WeaknessCategory(val wireValue: String) {
-    TECHNIQUE("technique"),
-    CONSISTENCY("consistency"),
-    SETUP_SENSITIVITY("setup_sensitivity"),
-    CONFIDENCE("confidence"),
-    RACE_MANAGEMENT("race_management"),
-    EXECUTION("execution"),
+    @SerialName("technique") TECHNIQUE("technique"),
+    @SerialName("consistency") CONSISTENCY("consistency"),
+    @SerialName("setup_sensitivity") SETUP_SENSITIVITY("setup_sensitivity"),
+    @SerialName("confidence") CONFIDENCE("confidence"),
+    @SerialName("race_management") RACE_MANAGEMENT("race_management"),
+    @SerialName("execution") EXECUTION("execution"),
     ;
 
     companion object {

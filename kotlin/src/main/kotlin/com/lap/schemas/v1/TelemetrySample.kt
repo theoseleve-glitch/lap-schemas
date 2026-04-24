@@ -1,5 +1,7 @@
 package com.lap.schemas.v1
 
+import kotlinx.serialization.Serializable
+
 /**
  * Single captured sample, mirroring `lap_schemas.v1.telemetry_sample.TelemetrySample`.
  *
@@ -17,6 +19,7 @@ package com.lap.schemas.v1
  * [channels] is a free-form `Map<String, Double>` — the set of channel
  * names is defined by the server ingestion contract, not by the client.
  */
+@Serializable
 data class TelemetrySample(
     val tSourceNs: Long,
     val tCanonicalNs: Long,

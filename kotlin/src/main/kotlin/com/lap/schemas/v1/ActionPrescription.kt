@@ -1,5 +1,7 @@
 package com.lap.schemas.v1
 
+import kotlinx.serialization.Serializable
+
 /**
  * Backend-generated prescription for a specific driver weakness,
  * mirroring `lap_schemas.v1.action_prescription.ActionPrescription`.
@@ -12,6 +14,7 @@ package com.lap.schemas.v1
  * `"skipped"` / `"expired"`. Both kept as String until codegen.
  * Timestamps are RFC3339 UTC strings until T038.
  */
+@Serializable
 data class ActionPrescription(
     val id: UUID7,
     val driverId: UUID7,

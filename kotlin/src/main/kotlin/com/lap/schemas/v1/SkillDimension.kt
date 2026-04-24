@@ -1,5 +1,8 @@
 package com.lap.schemas.v1
 
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+
 /**
  * Per-skill rollup used inside [DriverProgressSnapshot], mirroring
  * `lap_schemas.v1.skill_dimension.SkillDimension`.
@@ -9,10 +12,11 @@ package com.lap.schemas.v1
  * [0, 100], [confidence] in [0, 1], [sampleCount] >= 0) re-validated
  * server-side until T038.
  */
+@Serializable
 data class SkillDimension(
     val score: Double,
     val confidence: Double,
-    val trend14d: String,
+    @SerialName("trend_14d") val trend14d: String,
     val sampleCount: Int,
     val lastEvidenceSessionId: UUID7? = null,
 )

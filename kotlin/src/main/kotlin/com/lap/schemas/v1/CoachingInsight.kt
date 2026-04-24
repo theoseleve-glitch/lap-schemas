@@ -1,5 +1,7 @@
 package com.lap.schemas.v1
 
+import kotlinx.serialization.Serializable
+
 /**
  * Per-session coaching finding that the mobile dashboard renders inline
  * and the InsightCache (T045) caches for offline view. Backend-authored
@@ -19,6 +21,7 @@ package com.lap.schemas.v1
  * Both kept as String until codegen; timestamps are RFC3339 UTC
  * strings until T038.
  */
+@Serializable
 data class CoachingInsight(
     val id: UUID7,
     val sessionId: UUID7,

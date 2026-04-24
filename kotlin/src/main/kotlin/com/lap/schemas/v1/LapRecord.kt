@@ -1,5 +1,7 @@
 package com.lap.schemas.v1
 
+import kotlinx.serialization.Serializable
+
 /**
  * One completed lap, mirroring `lap_schemas.v1.lap_record.LapRecord`.
  *
@@ -10,6 +12,7 @@ package com.lap.schemas.v1
  * Pydantic constraints: [lapNumber] >= 0, [timeMs] >= 0 when present.
  * Re-validated server-side until T038 wires kotlinx-serialization.
  */
+@Serializable
 data class LapRecord(
     val id: UUID7,
     val sessionId: UUID7,

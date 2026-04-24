@@ -1,5 +1,7 @@
 package com.lap.schemas.v1
 
+import kotlinx.serialization.Serializable
+
 /**
  * Per-session data-quality verdict, mirroring
  * `lap_schemas.v1.data_quality.DataQuality`. Populated by the capture
@@ -14,6 +16,7 @@ package com.lap.schemas.v1
  * [warnings] and [recommendations] default to empty lists to match the
  * Pydantic `default_factory=tuple`.
  */
+@Serializable
 data class DataQuality(
     val score: Double,
     val channelCompleteness: Double,
