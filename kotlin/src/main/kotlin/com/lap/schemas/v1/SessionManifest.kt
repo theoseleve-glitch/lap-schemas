@@ -4,21 +4,17 @@ package com.lap.schemas.v1
  * Hand-typed stub mirroring `lap_schemas.v1.session.SessionManifest`
  * (Pydantic v2). Codegen isn't wired yet; this keeps mobile unblocked.
  *
- * Scope of T027:
- *  - Only SessionManifest is the deliverable; [DataQuality] and
- *    [SensorConfigSnapshot] are empty placeholders populated by T031/T032.
+ * Scope of remaining refinements:
+ *  - [SensorConfigSnapshot] is still an empty placeholder populated by T032.
  *  - Remaining enum-like fields ([captureApp], [realHardware],
  *    [objectiveTag], [bundleVersion]) stay as String until codegen
- *    lands. [source] promoted in T029, [environmentTag] in T030.
- *    [UUID7] hardens in T039.
+ *    lands. [source] promoted in T029, [environmentTag] in T030,
+ *    [dataQuality] filled in T031. [UUID7] hardens in T039.
  *  - Serialization annotations land in T038. Do not add @Serializable here.
  */
 
 /** Placeholder UUIDv7 alias until T039 introduces validation. */
 typealias UUID7 = String
-
-/** Placeholder populated by T031. */
-data class DataQuality(val placeholder: Unit = Unit)
 
 /** Placeholder populated by T032. */
 data class SensorConfigSnapshot(val placeholder: Unit = Unit)

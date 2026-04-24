@@ -31,7 +31,14 @@ class SessionManifestTest {
             telemetryChecksums = mapOf("telemetry.csv" to "sha256:abc"),
             totalSamples = 27000,
             sampleRateHz = 10.0,
-            dataQuality = DataQuality(),
+            dataQuality = DataQuality(
+                score = 100.0,
+                channelCompleteness = 100.0,
+                sampleGapsCount = 0,
+                sampleRateStability = 1.0,
+                usableForOverlays = true,
+                usableForLongTermCoaching = true,
+            ),
             sensorConfig = SensorConfigSnapshot(),
         )
 
