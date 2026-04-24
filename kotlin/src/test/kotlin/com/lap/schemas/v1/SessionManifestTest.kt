@@ -20,7 +20,7 @@ class SessionManifestTest {
             deviceModel = "Pixel 8",
             deviceOs = "android",
             deviceOsVersion = "14",
-            source = "real",
+            source = SourceTag.REAL,
             carId = "0194cccc-cccc-7ccc-cccc-cccccccccccc",
             trackId = "0194dddd-dddd-7ddd-dddd-dddddddddddd",
             trackLayout = "gp",

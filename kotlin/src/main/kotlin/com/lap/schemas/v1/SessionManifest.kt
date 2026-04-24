@@ -7,9 +7,9 @@ package com.lap.schemas.v1
  * Scope of T027:
  *  - Only SessionManifest is the deliverable; [DataQuality] and
  *    [SensorConfigSnapshot] are empty placeholders populated by T031/T032.
- *  - Enum-like fields ([source], [environmentTag], [captureApp], etc.)
- *    stay as String until T029 (SourceTag) and T030 (EnvironmentTag)
- *    promote them to enums. [UUID7] hardens in T039.
+ *  - Enum-like fields ([environmentTag], [captureApp], etc.) stay as
+ *    String until T030 (EnvironmentTag) promotes them to enums; [source]
+ *    was promoted in T029. [UUID7] hardens in T039.
  *  - Serialization annotations land in T038. Do not add @Serializable here.
  */
 
@@ -31,7 +31,7 @@ data class SessionManifest(
     val deviceModel: String,
     val deviceOs: String,
     val deviceOsVersion: String,
-    val source: String,
+    val source: SourceTag,
     val simTitle: String? = null,
     val realHardware: String? = null,
     val carId: UUID7,
