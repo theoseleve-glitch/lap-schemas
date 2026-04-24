@@ -39,7 +39,10 @@ class SessionManifestTest {
                 usableForOverlays = true,
                 usableForLongTermCoaching = true,
             ),
-            sensorConfig = SensorConfigSnapshot(),
+            sensorConfig = SensorConfigSnapshot(
+                sensors = listOf(SensorConfig(name = "gnss", sampleRateHz = 10.0)),
+                hardwareId = "pixel-8-imu",
+            ),
         )
 
         assertEquals("v2", manifest.bundleVersion)

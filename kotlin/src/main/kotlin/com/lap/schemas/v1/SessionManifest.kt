@@ -5,19 +5,16 @@ package com.lap.schemas.v1
  * (Pydantic v2). Codegen isn't wired yet; this keeps mobile unblocked.
  *
  * Scope of remaining refinements:
- *  - [SensorConfigSnapshot] is still an empty placeholder populated by T032.
  *  - Remaining enum-like fields ([captureApp], [realHardware],
  *    [objectiveTag], [bundleVersion]) stay as String until codegen
  *    lands. [source] promoted in T029, [environmentTag] in T030,
- *    [dataQuality] filled in T031. [UUID7] hardens in T039.
+ *    [dataQuality] filled in T031, [sensorConfig] in T032.
+ *    [UUID7] hardens in T039.
  *  - Serialization annotations land in T038. Do not add @Serializable here.
  */
 
 /** Placeholder UUIDv7 alias until T039 introduces validation. */
 typealias UUID7 = String
-
-/** Placeholder populated by T032. */
-data class SensorConfigSnapshot(val placeholder: Unit = Unit)
 
 data class SessionManifest(
     val sessionId: UUID7,
