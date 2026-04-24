@@ -29,8 +29,10 @@ local.properties
 
 # Generated (regenerate via `make codegen`)
 typescript/src/generated/
+typescript/generated/
 swift/Generated/
 kotlin/src/main/kotlin/com/lap/schemas/generated/
+openapi.json
 
 # Env
 .env

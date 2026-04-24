@@ -4,6 +4,9 @@
   "description": "TypeScript types generated from lap-schemas OpenAPI 3.1.",
   "private": true,
   "type": "module",
+  "scripts": {
+    "generate:ts": "openapi-typescript ../python/openapi.json --output generated/schema.d.ts"
+  },
   "devDependencies": {
     "openapi-typescript": "^7.4.0"
   }
