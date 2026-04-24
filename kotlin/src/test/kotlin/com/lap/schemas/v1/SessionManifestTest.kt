@@ -24,7 +24,7 @@ class SessionManifestTest {
             carId = "0194cccc-cccc-7ccc-cccc-cccccccccccc",
             trackId = "0194dddd-dddd-7ddd-dddd-dddddddddddd",
             trackLayout = "gp",
-            environmentTag = "real_track_day",
+            environmentTag = EnvironmentTag.REAL_TRACK_DAY,
             startedAt = "2026-04-24T09:00:00Z",
             endedAt = "2026-04-24T09:45:00Z",
             durationSeconds = 2700.0,
