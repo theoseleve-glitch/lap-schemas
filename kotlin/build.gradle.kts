@@ -21,6 +21,18 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach 
     }
 }
 
+// Temporarily excludes the codegen-authored `generated/` package from
+// compilation: the backend sprint (lap-schemas T051) emits Kotlin that
+// references java.math.BigDecimal without a @Serializable serializer,
+// which breaks the kotlinx-serialization compiler plugin and blocks
+// every downstream mobile task that depends on :schemas. Mobile sprint
+// consumers stay on the hand-typed `v1/` stubs (T027–T039) until
+// generated/ is fixed upstream with either @Contextual + a
+// BigDecimalSerializer or @file:UseSerializers. Revert when green.
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    exclude("com/lap/schemas/generated/**")
+}
+
 dependencies {
     implementation(libs.kotlinx.serialization.json)
     testImplementation(libs.junit)
