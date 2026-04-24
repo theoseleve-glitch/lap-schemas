@@ -1,0 +1,5 @@
+node_modules/
+Generated/
+*.log
+.openapi-generator/
+.openapi-generator-ignore

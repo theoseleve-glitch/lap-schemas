@@ -1,0 +1,12 @@
+{
+  "name": "@lap/schemas-swift-codegen",
+  "version": "0.0.1",
+  "description": "Swift5 codegen tooling for lap-schemas.",
+  "private": true,
+  "scripts": {
+    "generate:swift": "openapi-generator-cli generate -i ../python/openapi.json -g swift5 -o Generated -c openapi-generator-config.yaml"
+  },
+  "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.13.0"
+  }
+}
