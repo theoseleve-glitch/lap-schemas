@@ -1,0 +1,13 @@
+packageName: com.lap.schemas
+modelPackage: com.lap.schemas.generated
+serializationLibrary: kotlinx_serialization
+enumPropertyNaming: UPPERCASE
+sourceFolder: ""
+globalProperties:
+  models: ""
+  modelDocs: "false"
+  modelTests: "false"
+  apis: "false"
+  apiTests: "false"
+  apiDocs: "false"
+  supportingFiles: "false"

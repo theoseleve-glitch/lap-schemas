@@ -1,0 +1,12 @@
+{
+  "name": "@lap/schemas-kotlin-codegen",
+  "version": "0.0.1",
+  "description": "Kotlin codegen tooling for lap-schemas (Android consumers).",
+  "private": true,
+  "scripts": {
+    "generate:kotlin": "openapi-generator-cli generate -i ../python/openapi.json -g kotlin -o src/main/kotlin -c openapi-generator-config.yaml"
+  },
+  "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.13.0"
+  }
+}

@@ -1,0 +1,5 @@
+node_modules/
+.openapi-generator/
+.openapi-generator-ignore
+src/main/kotlin/com/lap/schemas/generated/
+*.log
