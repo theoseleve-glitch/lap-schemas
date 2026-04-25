@@ -6,6 +6,7 @@ can do ``from lap_schemas.v1 import SomeType`` instead of reaching
 into individual modules.
 """
 
+from lap_schemas.v1.device_session import DeviceSession
 from lap_schemas.v1.driver_profile import DriverProfile, DriverProfileUpdate
 from lap_schemas.v1.lap_record import LapRecord
 from lap_schemas.v1.pairing import (
@@ -19,6 +20,7 @@ from lap_schemas.v1.user import User
 
 
 __all__ = [
+    "DeviceSession",
     "DriverProfile",
     "DriverProfileUpdate",
     "LapRecord",
