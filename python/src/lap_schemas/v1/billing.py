@@ -23,3 +23,9 @@ class BillingCheckoutResponse(BaseModel):
 
     url: str
     session_id: str
+
+
+class BillingPortalResponse(BaseModel):
+    model_config = ConfigDict(frozen=True, extra="forbid")
+
+    url: str

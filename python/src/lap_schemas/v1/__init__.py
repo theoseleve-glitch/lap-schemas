@@ -10,6 +10,7 @@ from lap_schemas.v1.billing import (
     BillingCheckoutRequest,
     BillingCheckoutResponse,
     BillingPlan,
+    BillingPortalResponse,
 )
 from lap_schemas.v1.car_catalog import CarCatalogList, CarCatalogPublic
 from lap_schemas.v1.device_session import DeviceSession
@@ -35,6 +36,7 @@ __all__ = [
     "BillingCheckoutRequest",
     "BillingCheckoutResponse",
     "BillingPlan",
+    "BillingPortalResponse",
     "CarCatalogList",
     "CarCatalogPublic",
     "DeviceSession",
