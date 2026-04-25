@@ -15,6 +15,7 @@ from lap_schemas.v1.pairing import (
     PairingRedeemResponse,
 )
 from lap_schemas.v1.session import SessionManifest
+from lap_schemas.v1.session_ingest import SessionIngestAccepted
 from lap_schemas.v1.telemetry_sample import TelemetrySample
 from lap_schemas.v1.user import User
 
@@ -27,6 +28,7 @@ __all__ = [
     "PairingCreateResponse",
     "PairingRedeemRequest",
     "PairingRedeemResponse",
+    "SessionIngestAccepted",
     "SessionManifest",
     "TelemetrySample",
     "User",
