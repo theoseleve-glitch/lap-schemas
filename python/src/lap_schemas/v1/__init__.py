@@ -13,6 +13,10 @@ from lap_schemas.v1.billing import (
     BillingPortalResponse,
 )
 from lap_schemas.v1.car_catalog import CarCatalogList, CarCatalogPublic
+from lap_schemas.v1.coaching_rule import (
+    CoachingRuleList,
+    CoachingRulePublic,
+)
 from lap_schemas.v1.device_session import DeviceSession
 from lap_schemas.v1.driver_profile import DriverProfile, DriverProfileUpdate
 from lap_schemas.v1.lap_record import LapRecord
@@ -39,6 +43,8 @@ __all__ = [
     "BillingPortalResponse",
     "CarCatalogList",
     "CarCatalogPublic",
+    "CoachingRuleList",
+    "CoachingRulePublic",
     "DeviceSession",
     "DriverProfile",
     "DriverProfileUpdate",
