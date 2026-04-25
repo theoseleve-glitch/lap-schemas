@@ -12,6 +12,24 @@ from lap_schemas.v1.source import SourceTag
 
 CaptureApp = Literal["lap-coach-logger", "lap-mobile-ios", "lap-mobile-android"]
 RealHardware = Literal["racebox", "phone_only", "aim_solo", "vbox_sport"]
+SessionStatus = Literal["uploaded", "processing", "ready", "failed"]
+
+
+class SessionDetail(BaseModel):
+    """Read model returned by GET /api/v1/sessions/{session_id} (T123).
+
+    Lightweight summary the UI/SSE consumers poll while a session
+    moves through processing. The rich post-processing payload lives
+    on the related `SessionRecord` row, exposed separately.
+    """
+
+    model_config = ConfigDict(frozen=True, extra="forbid")
+
+    id: UUID7
+    driver_id: UUID7
+    status: SessionStatus
+    created_at: datetime
+    failure_reason: str | None = None
 
 
 class SessionManifest(BaseModel):
