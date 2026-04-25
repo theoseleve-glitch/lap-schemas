@@ -9,10 +9,12 @@ into individual modules.
 from lap_schemas.v1.lap_record import LapRecord
 from lap_schemas.v1.session import SessionManifest
 from lap_schemas.v1.telemetry_sample import TelemetrySample
+from lap_schemas.v1.user import User
 
 
 __all__ = [
     "LapRecord",
     "SessionManifest",
     "TelemetrySample",
+    "User",
 ]
