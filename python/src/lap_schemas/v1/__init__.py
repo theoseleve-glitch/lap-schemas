@@ -20,6 +20,10 @@ from lap_schemas.v1.billing import (
     BillingPlan,
     BillingPortalResponse,
 )
+from lap_schemas.v1.bridge_suggest import (
+    BridgeSuggestLinkCandidate,
+    BridgeSuggestLinkList,
+)
 from lap_schemas.v1.car_catalog import CarCatalogList, CarCatalogPublic
 from lap_schemas.v1.coaching_rule import (
     CoachingRuleList,
@@ -86,6 +90,8 @@ __all__ = [
     "BillingPortalResponse",
     "BridgeLinkRating",
     "BridgeLinkRatingRequest",
+    "BridgeSuggestLinkCandidate",
+    "BridgeSuggestLinkList",
     "CarCatalogList",
     "CarCatalogPublic",
     "CoachingRuleList",
