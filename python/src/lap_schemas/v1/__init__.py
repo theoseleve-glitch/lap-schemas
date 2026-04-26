@@ -42,6 +42,12 @@ from lap_schemas.v1.pairing import (
 )
 from lap_schemas.v1.session import SessionDetail, SessionManifest
 from lap_schemas.v1.session_ingest import SessionIngestAccepted
+from lap_schemas.v1.skill_drilldown import (
+    SessionScoreRef,
+    SkillDimensionName,
+    SkillDrilldown,
+    SkillTrendPoint,
+)
 from lap_schemas.v1.telemetry_sample import TelemetrySample
 from lap_schemas.v1.timeline import TimelineEntry, TimelineResponse
 from lap_schemas.v1.track_catalog import (
@@ -85,6 +91,10 @@ __all__ = [
     "SessionDetail",
     "SessionIngestAccepted",
     "SessionManifest",
+    "SessionScoreRef",
+    "SkillDimensionName",
+    "SkillDrilldown",
+    "SkillTrendPoint",
     "TelemetrySample",
     "TimelineEntry",
     "TimelineResponse",
