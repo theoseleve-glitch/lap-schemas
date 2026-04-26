@@ -50,6 +50,10 @@ from lap_schemas.v1.track_catalog import (
     TrackCatalogPublic,
 )
 from lap_schemas.v1.user import User
+from lap_schemas.v1.weakness_detail import (
+    WeaknessDetail,
+    WeaknessHistoryEntry,
+)
 
 
 __all__ = [
@@ -87,4 +91,6 @@ __all__ = [
     "TrackCatalogList",
     "TrackCatalogPublic",
     "User",
+    "WeaknessDetail",
+    "WeaknessHistoryEntry",
 ]
