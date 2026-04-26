@@ -36,6 +36,7 @@ from lap_schemas.v1.compare_case import (
 )
 from lap_schemas.v1.device_session import DeviceSession
 from lap_schemas.v1.divergence_point import DivergencePoint
+from lap_schemas.v1.driver_benchmark import DriverBenchmarkResponse
 from lap_schemas.v1.driver_profile import DriverProfile, DriverProfileUpdate
 from lap_schemas.v1.driver_profile_aggregate import DriverProfileAggregate
 from lap_schemas.v1.lap_record import LapRecord
@@ -101,6 +102,7 @@ __all__ = [
     "CompareCaseSessionSnapshot",
     "DeviceSession",
     "DivergencePoint",
+    "DriverBenchmarkResponse",
     "DriverProfile",
     "DriverProfileAggregate",
     "DriverProfileUpdate",
