@@ -41,6 +41,7 @@ from lap_schemas.v1.pairing import (
     PairingRedeemResponse,
 )
 from lap_schemas.v1.session import SessionDetail, SessionManifest
+from lap_schemas.v1.session_coaching_view import SessionCoachingView
 from lap_schemas.v1.session_ingest import SessionIngestAccepted
 from lap_schemas.v1.skill_drilldown import (
     SessionScoreRef,
@@ -88,6 +89,7 @@ __all__ = [
     "PairingRedeemRequest",
     "PairingRedeemResponse",
     "SectorCheckpointPublic",
+    "SessionCoachingView",
     "SessionDetail",
     "SessionIngestAccepted",
     "SessionManifest",
