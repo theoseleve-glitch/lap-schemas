@@ -45,6 +45,14 @@ class TransferLink(BaseModel):
     usefulness_rating: BridgeLinkRating | None = None
     rated_at: datetime | None = None
 
+    # T029 (sprint2-backend) — link lifecycle. Server stamps
+    # `stale_at` when a session referenced in `session_pair` is
+    # deleted. Once stamped it stays — re-marking is a no-op and
+    # we never automatically un-stale a link (the missing session
+    # isn't coming back). Consumers can filter `stale_at IS NULL`
+    # or surface a "session no longer available" badge.
+    stale_at: datetime | None = None
+
 
 class TransferLinkList(BaseModel):
     """Paginated wrapper for `GET /api/v1/driver/:id/bridge/links`

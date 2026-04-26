@@ -339,3 +339,42 @@ def test_bridge_link_rating_request_re_exported_from_v1_root() -> None:
     from lap_schemas.v1.transfer_link import BridgeLinkRatingRequest
 
     assert _R is BridgeLinkRatingRequest
+
+
+# -- T029 (sprint2-backend): stale lifecycle ----------------------
+
+
+def test_transfer_link_stale_at_defaults_to_none() -> None:
+    """A freshly created link is by definition not stale — both
+    its referenced sessions still exist. stale_at is None until
+    something marks it stale."""
+    link = TransferLink(
+        id=uuid6.uuid7(),
+        driver_id=uuid6.uuid7(),
+        created_at=datetime(2026, 4, 25, tzinfo=timezone.utc),
+        created_by="auto",
+        session_pair=(uuid6.uuid7(), uuid6.uuid7()),
+        link_reason="same_track",
+        shape_match_score=0.7,
+        intensity_match_score=0.6,
+    )
+    assert link.stale_at is None
+
+
+def test_transfer_link_accepts_stale_at_timestamp() -> None:
+    """When a referenced session is deleted, the backend stamps
+    stale_at = now() so consumers can either filter or surface the
+    link with a 'session no longer available' badge."""
+    stamped = datetime(2026, 5, 1, 9, 30, tzinfo=timezone.utc)
+    link = TransferLink(
+        id=uuid6.uuid7(),
+        driver_id=uuid6.uuid7(),
+        created_at=datetime(2026, 4, 25, tzinfo=timezone.utc),
+        created_by="auto",
+        session_pair=(uuid6.uuid7(), uuid6.uuid7()),
+        link_reason="same_track",
+        shape_match_score=0.7,
+        intensity_match_score=0.6,
+        stale_at=stamped,
+    )
+    assert link.stale_at == stamped
