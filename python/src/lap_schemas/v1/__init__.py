@@ -6,6 +6,10 @@ can do ``from lap_schemas.v1 import SomeType`` instead of reaching
 into individual modules.
 """
 
+from lap_schemas.v1.action_prescription import (
+    ActionPrescriptionList,
+    ActionPrescriptionListItem,
+)
 from lap_schemas.v1.billing import (
     BillingCheckoutRequest,
     BillingCheckoutResponse,
@@ -37,6 +41,8 @@ from lap_schemas.v1.user import User
 
 
 __all__ = [
+    "ActionPrescriptionList",
+    "ActionPrescriptionListItem",
     "BillingCheckoutRequest",
     "BillingCheckoutResponse",
     "BillingPlan",
