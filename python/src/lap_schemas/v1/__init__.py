@@ -28,6 +28,7 @@ from lap_schemas.v1.coaching_rule import (
 from lap_schemas.v1.device_session import DeviceSession
 from lap_schemas.v1.driver_profile import DriverProfile, DriverProfileUpdate
 from lap_schemas.v1.lap_record import LapRecord
+from lap_schemas.v1.next_actions import NextActionsResponse
 from lap_schemas.v1.pairing import (
     PairingCreateResponse,
     PairingRedeemRequest,
@@ -61,6 +62,7 @@ __all__ = [
     "DriverProfile",
     "DriverProfileUpdate",
     "LapRecord",
+    "NextActionsResponse",
     "PairingCreateResponse",
     "PairingRedeemRequest",
     "PairingRedeemResponse",
