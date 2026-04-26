@@ -61,6 +61,7 @@ from lap_schemas.v1.transfer_link import (
     TransferCreatedBy,
     TransferLink,
     TransferLinkCreate,
+    TransferLinkList,
     TransferLinkReason,
 )
 from lap_schemas.v1.user import User
@@ -113,6 +114,7 @@ __all__ = [
     "TransferCreatedBy",
     "TransferLink",
     "TransferLinkCreate",
+    "TransferLinkList",
     "TransferLinkReason",
     "User",
     "WeaknessDetail",

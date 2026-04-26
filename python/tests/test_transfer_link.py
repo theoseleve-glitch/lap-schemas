@@ -211,3 +211,57 @@ def test_transfer_link_create_re_exported_from_v1_root() -> None:
     from lap_schemas.v1.transfer_link import TransferLinkCreate
 
     assert _TLC is TransferLinkCreate
+
+
+# -- T021 (sprint2-backend): TransferLinkList paginated wrapper ---
+
+
+def _link() -> TransferLink:
+    return TransferLink(
+        id=uuid6.uuid7(),
+        driver_id=uuid6.uuid7(),
+        created_at=datetime(2026, 4, 25, tzinfo=timezone.utc),
+        created_by="auto",
+        session_pair=(uuid6.uuid7(), uuid6.uuid7()),
+        link_reason="same_track",
+        shape_match_score=0.78,
+        intensity_match_score=0.62,
+    )
+
+
+def test_transfer_link_list_round_trip_json() -> None:
+    """Paginated wrapper for `GET /api/v1/driver/:id/bridge/links`.
+    Same shape as TrackCatalogList so the web app can reuse its
+    pagination component."""
+    from lap_schemas.v1.transfer_link import TransferLinkList
+
+    page = TransferLinkList(
+        items=(_link(), _link()),
+        total=2,
+        limit=20,
+        offset=0,
+    )
+    revived = TransferLinkList.model_validate_json(page.model_dump_json())
+    assert revived == page
+
+
+def test_transfer_link_list_empty_page_is_valid() -> None:
+    from lap_schemas.v1.transfer_link import TransferLinkList
+
+    page = TransferLinkList(items=(), total=0, limit=20, offset=0)
+    assert page.items == ()
+    assert page.total == 0
+
+
+def test_transfer_link_list_limit_must_be_positive() -> None:
+    from lap_schemas.v1.transfer_link import TransferLinkList
+
+    with pytest.raises(ValidationError):
+        TransferLinkList(items=(), total=0, limit=0, offset=0)
+
+
+def test_transfer_link_list_re_exported_from_v1_root() -> None:
+    from lap_schemas.v1 import TransferLinkList as _TLL
+    from lap_schemas.v1.transfer_link import TransferLinkList
+
+    assert _TLL is TransferLinkList

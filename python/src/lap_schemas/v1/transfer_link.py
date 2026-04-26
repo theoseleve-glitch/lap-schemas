@@ -34,6 +34,19 @@ class TransferLink(BaseModel):
     generated_report_id: UUID7 | None = None
 
 
+class TransferLinkList(BaseModel):
+    """Paginated wrapper for `GET /api/v1/driver/:id/bridge/links`
+    (T021). Same shape as TrackCatalogList so the web app can
+    reuse its pagination component."""
+
+    model_config = ConfigDict(frozen=True, extra="forbid")
+
+    items: tuple[TransferLink, ...]
+    total: int = Field(ge=0)
+    limit: int = Field(ge=1)
+    offset: int = Field(ge=0)
+
+
 class TransferLinkCreate(BaseModel):
     """Request body for `POST /api/v1/bridge/links` (T019).
 
