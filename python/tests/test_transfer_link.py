@@ -378,3 +378,86 @@ def test_transfer_link_accepts_stale_at_timestamp() -> None:
         stale_at=stamped,
     )
     assert link.stale_at == stamped
+
+
+# -- T030 (sprint2-backend): bulk create wrapper ------------------
+
+
+def _bulk_item() -> "TransferLinkCreate":  # local helper
+    from lap_schemas.v1.transfer_link import TransferLinkCreate
+
+    return TransferLinkCreate(
+        created_by="auto",
+        session_pair=(uuid6.uuid7(), uuid6.uuid7()),
+        link_reason="same_track",
+        shape_match_score=0.7,
+        intensity_match_score=0.6,
+    )
+
+
+def test_transfer_link_bulk_create_min_one_item() -> None:
+    """Empty batch is meaningless — there's no implied 'create
+    nothing' semantic. Reject so the caller can short-circuit
+    rather than wasting an HTTP roundtrip."""
+    from lap_schemas.v1.transfer_link import TransferLinkBulkCreate
+
+    with pytest.raises(ValidationError):
+        TransferLinkBulkCreate(items=())
+
+
+def test_transfer_link_bulk_create_caps_at_100_items() -> None:
+    """100 is the per-request cap — forces large imports to chunk
+    rather than blocking the worker thread on a multi-thousand
+    insert. Picked round so it's memorable."""
+    from lap_schemas.v1.transfer_link import TransferLinkBulkCreate
+
+    over_cap = tuple(_bulk_item() for _ in range(101))
+    with pytest.raises(ValidationError):
+        TransferLinkBulkCreate(items=over_cap)
+
+
+def test_transfer_link_bulk_create_round_trip_json() -> None:
+    from lap_schemas.v1.transfer_link import TransferLinkBulkCreate
+
+    body = TransferLinkBulkCreate(
+        items=(_bulk_item(), _bulk_item(), _bulk_item())
+    )
+    revived = TransferLinkBulkCreate.model_validate_json(
+        body.model_dump_json()
+    )
+    assert revived == body
+    assert len(revived.items) == 3
+
+
+def test_transfer_link_bulk_create_re_exported_from_v1_root() -> None:
+    from lap_schemas.v1 import TransferLinkBulkCreate as _BC
+    from lap_schemas.v1.transfer_link import TransferLinkBulkCreate
+
+    assert _BC is TransferLinkBulkCreate
+
+
+def test_transfer_link_bulk_response_round_trip_json() -> None:
+    from lap_schemas.v1.transfer_link import TransferLinkBulkResponse
+
+    link = TransferLink(
+        id=uuid6.uuid7(),
+        driver_id=uuid6.uuid7(),
+        created_at=datetime(2026, 4, 25, tzinfo=timezone.utc),
+        created_by="auto",
+        session_pair=(uuid6.uuid7(), uuid6.uuid7()),
+        link_reason="same_track",
+        shape_match_score=0.7,
+        intensity_match_score=0.6,
+    )
+    page = TransferLinkBulkResponse(items=(link,))
+    revived = TransferLinkBulkResponse.model_validate_json(
+        page.model_dump_json()
+    )
+    assert revived == page
+
+
+def test_transfer_link_bulk_response_re_exported_from_v1_root() -> None:
+    from lap_schemas.v1 import TransferLinkBulkResponse as _BR
+    from lap_schemas.v1.transfer_link import TransferLinkBulkResponse
+
+    assert _BR is TransferLinkBulkResponse

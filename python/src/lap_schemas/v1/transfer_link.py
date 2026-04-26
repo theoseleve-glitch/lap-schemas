@@ -106,3 +106,35 @@ class BridgeLinkRatingRequest(BaseModel):
     model_config = ConfigDict(frozen=True, extra="forbid")
 
     rating: BridgeLinkRating
+
+
+class TransferLinkBulkCreate(BaseModel):
+    """Request body for `POST /api/v1/bridge/links/bulk` (T030).
+
+    Migration/import use case: one driver's batch of links in a
+    single transaction. Atomic — all items succeed or all fail
+    (transaction rolled back on any cross-driver, validation, or
+    dedup violation, with the offending index in the error
+    response).
+
+    Capped at 100 items per request to bound work; larger imports
+    chunk client-side.
+    """
+
+    model_config = ConfigDict(frozen=True, extra="forbid")
+
+    items: tuple[TransferLinkCreate, ...] = Field(
+        min_length=1, max_length=100
+    )
+
+
+class TransferLinkBulkResponse(BaseModel):
+    """Response body for `POST /api/v1/bridge/links/bulk` (T030).
+
+    Created links in input order so callers can correlate items
+    by index.
+    """
+
+    model_config = ConfigDict(frozen=True, extra="forbid")
+
+    items: tuple[TransferLink, ...]
