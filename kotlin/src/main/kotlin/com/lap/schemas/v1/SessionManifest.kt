@@ -34,6 +34,7 @@ data class SessionManifest(
     val environmentTag: EnvironmentTag,
     val objectiveTag: String? = null,
     val trainingBlockId: UUID7? = null,
+    val enduranceEventId: UUID7? = null,
     val startedAt: String,
     val endedAt: String,
     val durationSeconds: Double,

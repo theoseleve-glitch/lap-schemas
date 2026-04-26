@@ -91,6 +91,84 @@ def test_session_manifest_accepts_real_session() -> None:
     assert manifest.objective_tag is None
 
 
+def test_session_manifest_endurance_event_id_defaults_to_none() -> None:
+    """T066 (sprint2-backend) — `endurance_event_id` is server-set
+    after ingest correlates a session to an EnduranceEvent (T067).
+    Capture clients never produce it, so the field MUST default to
+    None when omitted. Pin the additive-non-breaking shape: existing
+    clients keep validating without changes."""
+    manifest = SessionManifest(
+        session_id=uuid6.uuid7(),
+        driver_id=uuid6.uuid7(),
+        bundle_version="v2",
+        capture_app="lap-coach-logger",
+        capture_app_version="0.9.0",
+        device_model="Desktop",
+        device_os="Windows",
+        device_os_version="11",
+        source="iracing",
+        sim_title="iracing",
+        real_hardware=None,
+        car_id=uuid6.uuid7(),
+        track_id=uuid6.uuid7(),
+        track_layout="gp",
+        environment_tag=EnvironmentTag.SIM_PRACTICE,
+        objective_tag=ObjectiveTag.DRILL,
+        training_block_id=None,
+        started_at=datetime(2026, 4, 24, 10, 0, tzinfo=timezone.utc),
+        ended_at=datetime(2026, 4, 24, 10, 45, tzinfo=timezone.utc),
+        duration_seconds=2700.0,
+        telemetry_checksums={"samples.bin": "sha256:abc"},
+        total_samples=120000,
+        sample_rate_hz=60.0,
+        data_quality=_minimal_quality(),
+        sensor_config=SensorConfigSnapshot(),
+    )
+    assert manifest.endurance_event_id is None
+
+
+def test_session_manifest_accepts_endurance_event_id_and_round_trips() -> None:
+    """T066 (sprint2-backend) — when a session belongs to an endurance
+    event, the field carries the event id (UUID7) and survives a JSON
+    round-trip unchanged. Mutation: dropping the field from the model
+    or losing it on serialization would lose the link to T067's
+    EnduranceEvent and break the long-run scoring pipeline."""
+    event_id = uuid6.uuid7()
+    original = SessionManifest(
+        session_id=uuid6.uuid7(),
+        driver_id=uuid6.uuid7(),
+        bundle_version="v2",
+        capture_app="lap-coach-logger",
+        capture_app_version="0.9.0",
+        device_model="Desktop",
+        device_os="Linux",
+        device_os_version="6.1",
+        source="iracing",
+        sim_title="iracing",
+        real_hardware=None,
+        car_id=uuid6.uuid7(),
+        track_id=uuid6.uuid7(),
+        track_layout="gp",
+        environment_tag=EnvironmentTag.SIM_RACE,
+        objective_tag=ObjectiveTag.RACE_PREP,
+        training_block_id=None,
+        endurance_event_id=event_id,
+        started_at=datetime(2026, 4, 24, 18, 0, tzinfo=timezone.utc),
+        ended_at=datetime(2026, 4, 24, 22, 0, tzinfo=timezone.utc),
+        duration_seconds=14400.0,
+        telemetry_checksums={"samples.bin": "sha256:xyz"},
+        total_samples=864000,
+        sample_rate_hz=60.0,
+        data_quality=_minimal_quality(),
+        sensor_config=SensorConfigSnapshot(),
+    )
+    assert original.endurance_event_id == event_id
+    encoded = original.model_dump_json()
+    reloaded = SessionManifest.model_validate_json(encoded)
+    assert reloaded.endurance_event_id == event_id
+    assert reloaded == original
+
+
 def test_session_manifest_json_roundtrip() -> None:
     original = SessionManifest(
         session_id=uuid6.uuid7(),

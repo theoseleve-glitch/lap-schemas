@@ -55,6 +55,7 @@ class SessionManifest(BaseModel):
     environment_tag: EnvironmentTag
     objective_tag: ObjectiveTag | None = None
     training_block_id: UUID7 | None = None
+    endurance_event_id: UUID7 | None = None
 
     started_at: datetime
     ended_at: datetime
