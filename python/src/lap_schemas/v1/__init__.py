@@ -29,6 +29,7 @@ from lap_schemas.v1.coaching_rule import (
     CoachingRuleList,
     CoachingRulePublic,
 )
+from lap_schemas.v1.cohort_size import CohortSizeResponse
 from lap_schemas.v1.compare_case import (
     CompareCase,
     CompareCaseCreate,
@@ -97,6 +98,7 @@ __all__ = [
     "CarCatalogPublic",
     "CoachingRuleList",
     "CoachingRulePublic",
+    "CohortSizeResponse",
     "CompareCase",
     "CompareCaseCreate",
     "CompareCaseSessionSnapshot",
