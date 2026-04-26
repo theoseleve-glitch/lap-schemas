@@ -135,6 +135,14 @@ def test_drilldown_minimal_payload() -> None:
     assert d.related_weaknesses == ()
 
 
+def test_drilldown_allows_no_current_for_fresh_driver() -> None:
+    """A driver with no progress snapshots yet should still get a
+    valid drilldown response (current=None) instead of 404."""
+    d = SkillDrilldown(dimension="braking")
+    assert d.current is None
+    assert d.trend == ()
+
+
 def test_drilldown_with_all_sections() -> None:
     d = SkillDrilldown(
         dimension="braking",
@@ -174,6 +182,13 @@ def test_drilldown_accepts_each_known_dimension() -> None:
         "adaptation",
     ):
         SkillDrilldown(dimension=name, current=_dim())  # type: ignore[arg-type]
+
+
+def test_drilldown_round_trip_no_current() -> None:
+    d = SkillDrilldown(dimension="adaptation")
+    revived = SkillDrilldown.model_validate_json(d.model_dump_json())
+    assert revived.current is None
+    assert revived.dimension == "adaptation"
 
 
 def test_drilldown_rejects_extras() -> None:

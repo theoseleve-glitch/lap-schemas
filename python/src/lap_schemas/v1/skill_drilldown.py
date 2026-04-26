@@ -4,7 +4,9 @@
 one of the ten DriverProgressSnapshot dimensions. The wrapper
 collapses three sources into one round-trip:
 
-- ``current`` — the most recent SkillDimension reading
+- ``current`` — the most recent SkillDimension reading (None if
+  the driver has no progress snapshots yet, so a fresh-account
+  drilldown still returns 200 with an empty payload instead of 404)
 - ``trend`` — historical SkillTrendPoint samples for charting
 - ``best_session`` / ``worst_session`` — SessionScoreRef pointers
   at the dimension's extremes (None if there's <1 historical
@@ -69,7 +71,7 @@ class SkillDrilldown(BaseModel):
     model_config = ConfigDict(frozen=True, extra="forbid")
 
     dimension: SkillDimensionName
-    current: SkillDimension
+    current: SkillDimension | None = None
     trend: tuple[SkillTrendPoint, ...] = Field(default_factory=tuple)
     best_session: SessionScoreRef | None = None
     worst_session: SessionScoreRef | None = None
