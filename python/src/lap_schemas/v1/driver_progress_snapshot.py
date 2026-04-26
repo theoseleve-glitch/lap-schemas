@@ -30,6 +30,13 @@ class DriverProgressSnapshot(BaseModel):
     setup_sensitivity: SkillDimension
     adaptation: SkillDimension
 
+    # T073 endurance-weighted dimensions. Optional because sprint-only
+    # drivers won't have stint-level data; default None preserves the
+    # additive non-breaking shape for every existing snapshot.
+    long_run_consistency: SkillDimension | None = None
+    pace_decay: SkillDimension | None = None
+    tire_preservation: SkillDimension | None = None
+
     overall_score: float = Field(ge=0, le=100)
     overall_confidence: float = Field(ge=0, le=1)
     percentile_vs_cohort: float | None = Field(default=None, ge=0, le=1)
