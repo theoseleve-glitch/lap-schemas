@@ -37,6 +37,7 @@ from lap_schemas.v1.pairing import (
 from lap_schemas.v1.session import SessionDetail, SessionManifest
 from lap_schemas.v1.session_ingest import SessionIngestAccepted
 from lap_schemas.v1.telemetry_sample import TelemetrySample
+from lap_schemas.v1.timeline import TimelineEntry, TimelineResponse
 from lap_schemas.v1.track_catalog import (
     SectorCheckpointPublic,
     TrackCatalogList,
@@ -71,6 +72,8 @@ __all__ = [
     "SessionIngestAccepted",
     "SessionManifest",
     "TelemetrySample",
+    "TimelineEntry",
+    "TimelineResponse",
     "TrackCatalogList",
     "TrackCatalogPublic",
     "User",
