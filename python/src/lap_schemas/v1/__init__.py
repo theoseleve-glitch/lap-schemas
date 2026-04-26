@@ -25,6 +25,7 @@ from lap_schemas.v1.coaching_rule import (
     CoachingRuleList,
     CoachingRulePublic,
 )
+from lap_schemas.v1.compare_case import CompareCase, CompareCaseCreate
 from lap_schemas.v1.device_session import DeviceSession
 from lap_schemas.v1.driver_profile import DriverProfile, DriverProfileUpdate
 from lap_schemas.v1.driver_profile_aggregate import DriverProfileAggregate
@@ -60,6 +61,8 @@ __all__ = [
     "CarCatalogPublic",
     "CoachingRuleList",
     "CoachingRulePublic",
+    "CompareCase",
+    "CompareCaseCreate",
     "DeviceSession",
     "DriverProfile",
     "DriverProfileAggregate",
