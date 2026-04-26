@@ -59,6 +59,7 @@ from lap_schemas.v1.pairing import (
 from lap_schemas.v1.session import SessionDetail, SessionManifest
 from lap_schemas.v1.target_event_create import TargetEventCreate
 from lap_schemas.v1.target_event_list import TargetEventList
+from lap_schemas.v1.track_day_create import TrackDayCreate
 from lap_schemas.v1.session_coaching_view import SessionCoachingView
 from lap_schemas.v1.session_ingest import SessionIngestAccepted
 from lap_schemas.v1.skill_drilldown import (
@@ -145,6 +146,7 @@ __all__ = [
     "TimelineResponse",
     "TrackCatalogList",
     "TrackCatalogPublic",
+    "TrackDayCreate",
     "TransferCreatedBy",
     "TransferLink",
     "TransferLinkBulkCreate",
