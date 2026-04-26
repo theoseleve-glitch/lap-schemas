@@ -74,3 +74,73 @@ def test_transfer_link_rejects_unknown_link_reason() -> None:
             non_transferred_skills=(),
             generated_report_id=None,
         )
+
+
+# -- T016 (sprint2-backend): round-trip + import surface ----------
+
+
+def test_transfer_link_round_trip_json() -> None:
+    """T016 acceptance: a TransferLink survives a full
+    model_dump_json → model_validate_json cycle without losing
+    any field. This is the wire-contract pin for the bridge
+    entity (ADR-005 §5.5)."""
+    original = TransferLink(
+        id=uuid6.uuid7(),
+        driver_id=uuid6.uuid7(),
+        created_at=datetime(2026, 4, 24, tzinfo=timezone.utc),
+        created_by="auto",
+        session_pair=(uuid6.uuid7(), uuid6.uuid7()),
+        link_reason="event_prep",
+        shape_match_score=0.91,
+        intensity_match_score=0.83,
+        divergence_points=(
+            DivergencePoint(
+                track_distance_m=120.0,
+                metric="brake_pressure_peak",
+                sim_value=0.8,
+                real_value=0.6,
+                divergence_type="intensity",
+            ),
+        ),
+        transferred_skills=("braking",),
+        non_transferred_skills=("minimum_speed",),
+        generated_report_id=uuid6.uuid7(),
+    )
+    revived = TransferLink.model_validate_json(original.model_dump_json())
+    assert revived == original
+
+
+def test_transfer_link_session_pair_requires_at_least_two() -> None:
+    """Per ADR-005 §5.5 a TransferLink represents a *pair* (or
+    multi-set, usually 2) of comparable sessions. A single-session
+    'pair' has no comparison to make and shouldn't validate."""
+    with pytest.raises(ValidationError):
+        TransferLink(
+            id=uuid6.uuid7(),
+            driver_id=uuid6.uuid7(),
+            created_at=datetime(2026, 4, 24, tzinfo=timezone.utc),
+            created_by="auto",
+            session_pair=(uuid6.uuid7(),),  # only 1 — rejected
+            link_reason="same_track",
+            shape_match_score=0.5,
+            intensity_match_score=0.5,
+            divergence_points=(),
+            transferred_skills=(),
+            non_transferred_skills=(),
+            generated_report_id=None,
+        )
+
+
+def test_transfer_link_re_exported_from_v1_root() -> None:
+    """Consumers should be able to `from lap_schemas.v1 import
+    TransferLink, DivergencePoint` without reaching into module
+    paths — same convention as other v1 schemas."""
+    from lap_schemas.v1 import (
+        DivergencePoint as _DP,
+    )
+    from lap_schemas.v1 import (
+        TransferLink as _TL,
+    )
+
+    assert _TL is TransferLink
+    assert _DP is DivergencePoint

@@ -31,6 +31,7 @@ from lap_schemas.v1.compare_case import (
     CompareCaseSessionSnapshot,
 )
 from lap_schemas.v1.device_session import DeviceSession
+from lap_schemas.v1.divergence_point import DivergencePoint
 from lap_schemas.v1.driver_profile import DriverProfile, DriverProfileUpdate
 from lap_schemas.v1.driver_profile_aggregate import DriverProfileAggregate
 from lap_schemas.v1.lap_record import LapRecord
@@ -56,6 +57,11 @@ from lap_schemas.v1.track_catalog import (
     TrackCatalogList,
     TrackCatalogPublic,
 )
+from lap_schemas.v1.transfer_link import (
+    TransferCreatedBy,
+    TransferLink,
+    TransferLinkReason,
+)
 from lap_schemas.v1.user import User
 from lap_schemas.v1.weakness_detail import (
     WeaknessDetail,
@@ -80,6 +86,7 @@ __all__ = [
     "CompareCaseCreate",
     "CompareCaseSessionSnapshot",
     "DeviceSession",
+    "DivergencePoint",
     "DriverProfile",
     "DriverProfileAggregate",
     "DriverProfileUpdate",
@@ -102,6 +109,9 @@ __all__ = [
     "TimelineResponse",
     "TrackCatalogList",
     "TrackCatalogPublic",
+    "TransferCreatedBy",
+    "TransferLink",
+    "TransferLinkReason",
     "User",
     "WeaknessDetail",
     "WeaknessHistoryEntry",

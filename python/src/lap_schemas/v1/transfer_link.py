@@ -18,7 +18,10 @@ class TransferLink(BaseModel):
     created_at: datetime
     created_by: TransferCreatedBy
 
-    session_pair: tuple[UUID7, ...]
+    # Per ADR-005 §5.5 a link is a *pair* (or multi-set) of
+    # comparable sessions — usually 2, never 1. A single-session
+    # link has no comparison to make.
+    session_pair: tuple[UUID7, ...] = Field(min_length=2)
     link_reason: TransferLinkReason
 
     shape_match_score: float = Field(ge=0, le=1)
