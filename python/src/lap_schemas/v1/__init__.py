@@ -40,6 +40,10 @@ from lap_schemas.v1.divergence_point import DivergencePoint
 from lap_schemas.v1.driver_benchmark import DriverBenchmarkResponse
 from lap_schemas.v1.driver_profile import DriverProfile, DriverProfileUpdate
 from lap_schemas.v1.driver_profile_aggregate import DriverProfileAggregate
+from lap_schemas.v1.driver_readiness_state import (
+    TargetEvent,
+    TargetEventKind,
+)
 from lap_schemas.v1.endurance_event_summary import EnduranceEventSummary
 from lap_schemas.v1.endurance_history import (
     DriverEnduranceHistoryEntry,
@@ -53,6 +57,7 @@ from lap_schemas.v1.pairing import (
     PairingRedeemResponse,
 )
 from lap_schemas.v1.session import SessionDetail, SessionManifest
+from lap_schemas.v1.target_event_create import TargetEventCreate
 from lap_schemas.v1.session_coaching_view import SessionCoachingView
 from lap_schemas.v1.session_ingest import SessionIngestAccepted
 from lap_schemas.v1.skill_drilldown import (
@@ -130,6 +135,9 @@ __all__ = [
     "SkillDimensionName",
     "SkillDrilldown",
     "SkillTrendPoint",
+    "TargetEvent",
+    "TargetEventCreate",
+    "TargetEventKind",
     "TelemetrySample",
     "TimelineEntry",
     "TimelineResponse",
