@@ -60,6 +60,7 @@ from lap_schemas.v1.track_catalog import (
 from lap_schemas.v1.transfer_link import (
     TransferCreatedBy,
     TransferLink,
+    TransferLinkCreate,
     TransferLinkReason,
 )
 from lap_schemas.v1.user import User
@@ -111,6 +112,7 @@ __all__ = [
     "TrackCatalogPublic",
     "TransferCreatedBy",
     "TransferLink",
+    "TransferLinkCreate",
     "TransferLinkReason",
     "User",
     "WeaknessDetail",

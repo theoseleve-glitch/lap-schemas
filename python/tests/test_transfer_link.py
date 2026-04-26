@@ -144,3 +144,70 @@ def test_transfer_link_re_exported_from_v1_root() -> None:
 
     assert _TL is TransferLink
     assert _DP is DivergencePoint
+
+
+# -- T019 (sprint2-backend): TransferLinkCreate request shape -----
+
+
+def test_transfer_link_create_minimal_payload() -> None:
+    """Request shape for `POST /api/v1/bridge/links`. id, driver_id,
+    and created_at are server-set (not client-provided), so the
+    create wrapper omits them. Defaults match TransferLink for the
+    optional list-typed fields."""
+    from lap_schemas.v1.transfer_link import TransferLinkCreate
+
+    req = TransferLinkCreate(
+        created_by="auto",
+        session_pair=(uuid6.uuid7(), uuid6.uuid7()),
+        link_reason="same_track",
+        shape_match_score=0.78,
+        intensity_match_score=0.62,
+    )
+    assert req.divergence_points == ()
+    assert req.transferred_skills == ()
+    assert req.non_transferred_skills == ()
+    assert req.generated_report_id is None
+
+
+def test_transfer_link_create_session_pair_requires_at_least_two() -> None:
+    from lap_schemas.v1.transfer_link import TransferLinkCreate
+
+    with pytest.raises(ValidationError):
+        TransferLinkCreate(
+            created_by="user",
+            session_pair=(uuid6.uuid7(),),
+            link_reason="manual",
+            shape_match_score=0.5,
+            intensity_match_score=0.5,
+        )
+
+
+def test_transfer_link_create_round_trip_json() -> None:
+    from lap_schemas.v1.transfer_link import TransferLinkCreate
+
+    original = TransferLinkCreate(
+        created_by="user",
+        session_pair=(uuid6.uuid7(), uuid6.uuid7()),
+        link_reason="manual",
+        shape_match_score=0.5,
+        intensity_match_score=0.5,
+        divergence_points=(
+            DivergencePoint(
+                track_distance_m=100.0,
+                metric="brake_pressure_peak",
+                sim_value=0.5,
+                real_value=0.7,
+                divergence_type="intensity",
+            ),
+        ),
+        transferred_skills=("braking",),
+    )
+    revived = TransferLinkCreate.model_validate_json(original.model_dump_json())
+    assert revived == original
+
+
+def test_transfer_link_create_re_exported_from_v1_root() -> None:
+    from lap_schemas.v1 import TransferLinkCreate as _TLC
+    from lap_schemas.v1.transfer_link import TransferLinkCreate
+
+    assert _TLC is TransferLinkCreate
