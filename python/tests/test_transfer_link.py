@@ -265,3 +265,77 @@ def test_transfer_link_list_re_exported_from_v1_root() -> None:
     from lap_schemas.v1.transfer_link import TransferLinkList
 
     assert _TLL is TransferLinkList
+
+
+# -- T023 (sprint2-backend): rating shape -------------------------
+
+
+def test_transfer_link_rating_defaults_unrated() -> None:
+    """A freshly created link has no usefulness rating yet — both
+    usefulness_rating and rated_at default to None so the POST T019
+    payload doesn't have to pass them."""
+    link = TransferLink(
+        id=uuid6.uuid7(),
+        driver_id=uuid6.uuid7(),
+        created_at=datetime(2026, 4, 25, tzinfo=timezone.utc),
+        created_by="auto",
+        session_pair=(uuid6.uuid7(), uuid6.uuid7()),
+        link_reason="same_track",
+        shape_match_score=0.7,
+        intensity_match_score=0.6,
+    )
+    assert link.usefulness_rating is None
+    assert link.rated_at is None
+
+
+def test_transfer_link_accepts_thumbs_up() -> None:
+    rated = TransferLink(
+        id=uuid6.uuid7(),
+        driver_id=uuid6.uuid7(),
+        created_at=datetime(2026, 4, 25, tzinfo=timezone.utc),
+        created_by="auto",
+        session_pair=(uuid6.uuid7(), uuid6.uuid7()),
+        link_reason="same_track",
+        shape_match_score=0.7,
+        intensity_match_score=0.6,
+        usefulness_rating="up",
+        rated_at=datetime(2026, 4, 25, 12, tzinfo=timezone.utc),
+    )
+    assert rated.usefulness_rating == "up"
+
+
+def test_transfer_link_rejects_unknown_rating() -> None:
+    with pytest.raises(ValidationError):
+        TransferLink(
+            id=uuid6.uuid7(),
+            driver_id=uuid6.uuid7(),
+            created_at=datetime(2026, 4, 25, tzinfo=timezone.utc),
+            created_by="auto",
+            session_pair=(uuid6.uuid7(), uuid6.uuid7()),
+            link_reason="same_track",
+            shape_match_score=0.7,
+            intensity_match_score=0.6,
+            usefulness_rating="meh",  # not in allowed set
+        )
+
+
+def test_bridge_link_rating_request_round_trip() -> None:
+    from lap_schemas.v1.transfer_link import BridgeLinkRatingRequest
+
+    body = BridgeLinkRatingRequest(rating="down")
+    revived = BridgeLinkRatingRequest.model_validate_json(body.model_dump_json())
+    assert revived.rating == "down"
+
+
+def test_bridge_link_rating_request_rejects_unknown_rating() -> None:
+    from lap_schemas.v1.transfer_link import BridgeLinkRatingRequest
+
+    with pytest.raises(ValidationError):
+        BridgeLinkRatingRequest(rating="okay")  # type: ignore[arg-type]
+
+
+def test_bridge_link_rating_request_re_exported_from_v1_root() -> None:
+    from lap_schemas.v1 import BridgeLinkRatingRequest as _R
+    from lap_schemas.v1.transfer_link import BridgeLinkRatingRequest
+
+    assert _R is BridgeLinkRatingRequest

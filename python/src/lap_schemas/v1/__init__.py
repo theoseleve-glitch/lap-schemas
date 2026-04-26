@@ -58,6 +58,8 @@ from lap_schemas.v1.track_catalog import (
     TrackCatalogPublic,
 )
 from lap_schemas.v1.transfer_link import (
+    BridgeLinkRating,
+    BridgeLinkRatingRequest,
     TransferCreatedBy,
     TransferLink,
     TransferLinkCreate,
@@ -80,6 +82,8 @@ __all__ = [
     "BillingCheckoutResponse",
     "BillingPlan",
     "BillingPortalResponse",
+    "BridgeLinkRating",
+    "BridgeLinkRatingRequest",
     "CarCatalogList",
     "CarCatalogPublic",
     "CoachingRuleList",

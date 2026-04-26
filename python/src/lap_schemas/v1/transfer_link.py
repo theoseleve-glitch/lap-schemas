@@ -8,6 +8,11 @@ from lap_schemas.v1.ids import UUID7
 
 TransferCreatedBy = Literal["user", "auto"]
 TransferLinkReason = Literal["same_track", "event_prep", "similar_car_class", "manual"]
+# T023 (sprint2-backend) — driver feedback on a link's usefulness.
+# Two-state thumbs feedback rather than a 1-5 star: easier UI, and
+# the only operational use we have for ratings is "is this rule
+# producing useful suggestions" — a binary signal is enough.
+BridgeLinkRating = Literal["up", "down"]
 
 
 class TransferLink(BaseModel):
@@ -32,6 +37,13 @@ class TransferLink(BaseModel):
     non_transferred_skills: tuple[str, ...] = Field(default_factory=tuple)
 
     generated_report_id: UUID7 | None = None
+
+    # T023 (sprint2-backend) — driver feedback. Both default to None
+    # so existing TransferLink construction sites (and the T019 POST
+    # body) don't have to pass them. `rated_at` lets us answer "how
+    # fresh is this signal?" when aggregating rule health.
+    usefulness_rating: BridgeLinkRating | None = None
+    rated_at: datetime | None = None
 
 
 class TransferLinkList(BaseModel):
@@ -72,3 +84,17 @@ class TransferLinkCreate(BaseModel):
     non_transferred_skills: tuple[str, ...] = Field(default_factory=tuple)
 
     generated_report_id: UUID7 | None = None
+
+
+class BridgeLinkRatingRequest(BaseModel):
+    """Request body for `POST /api/v1/bridge/links/:id/rate` (T023).
+
+    Single-field POST: the driver's thumbs-up/down on whether this
+    link's analysis was actually useful. The endpoint stamps
+    `rated_at` server-side, so callers only send the rating itself.
+    Re-rating overwrites — there's only one rating per link.
+    """
+
+    model_config = ConfigDict(frozen=True, extra="forbid")
+
+    rating: BridgeLinkRating
