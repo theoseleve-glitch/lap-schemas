@@ -1,4 +1,4 @@
-"""T161-T165 — organization create / response shapes.
+"""T161-T165 — organization create / invitation shapes.
 
 Backs `POST /api/v1/orgs` (T163), `POST /api/v1/orgs/:id/invites`
 (T164), and `POST /api/v1/orgs/:id/invites/:token/accept` (T165).
@@ -19,9 +19,18 @@ Bounds:
   - `seats_limit` >= 1: zero would mean nobody can be a member,
     which is nonsensical; the cap must allow at least the admin.
 
+Invite role is `OrgInviteRole = Literal["coach", "driver"]` —
+admin transfer is a separate concern (out of scope for T164).
+
+Email regex is sanity-shape, not RFC-perfect (anything@anything.
+anything) — avoids the `email-validator` dependency while still
+rejecting obviously-malformed addresses.
+
 Response omits no fields — `admin_user_id` is part of the public
 shape because invitees / clients use it to decide whether to
-show admin-only UI affordances.
+show admin-only UI affordances. Invitation response includes
+the `token` because email delivery isn't wired yet (T164 is the
+infrastructure piece; email send is a later task).
 """
 
 from datetime import datetime
@@ -32,6 +41,8 @@ from pydantic import BaseModel, ConfigDict, Field
 from lap_schemas.v1.ids import UUID7
 
 OrgPlan = Literal["free", "team", "pro"]
+OrgInviteRole = Literal["coach", "driver"]
+_EMAIL_REGEX = r"^[^@\s]+@[^@\s]+\.[^@\s]+$"
 
 
 class OrganizationCreate(BaseModel):
@@ -51,3 +62,22 @@ class Organization(BaseModel):
     admin_user_id: UUID7
     seats_limit: int
     created_at: datetime
+
+
+class OrganizationInvitationCreate(BaseModel):
+    model_config = ConfigDict(frozen=True, extra="forbid")
+
+    email: str = Field(min_length=3, max_length=320, pattern=_EMAIL_REGEX)
+    role: OrgInviteRole
+
+
+class OrganizationInvitation(BaseModel):
+    model_config = ConfigDict(frozen=True, extra="forbid")
+
+    id: UUID7
+    org_id: UUID7
+    email: str
+    role: OrgInviteRole
+    token: str
+    created_at: datetime
+    expires_at: datetime

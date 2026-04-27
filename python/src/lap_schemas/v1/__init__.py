@@ -54,6 +54,9 @@ from lap_schemas.v1.next_actions import NextActionsResponse
 from lap_schemas.v1.organization import (
     Organization,
     OrganizationCreate,
+    OrganizationInvitation,
+    OrganizationInvitationCreate,
+    OrgInviteRole,
     OrgPlan,
 )
 from lap_schemas.v1.pairing import (
@@ -155,6 +158,9 @@ __all__ = [
     "NextActionsResponse",
     "Organization",
     "OrganizationCreate",
+    "OrganizationInvitation",
+    "OrganizationInvitationCreate",
+    "OrgInviteRole",
     "OrgPlan",
     "PairingCreateResponse",
     "PairingRedeemRequest",
