@@ -57,6 +57,7 @@ from lap_schemas.v1.pairing import (
     PairingRedeemResponse,
 )
 from lap_schemas.v1.session import SessionDetail, SessionManifest
+from lap_schemas.v1.target_event_countdown import TargetEventCountdown
 from lap_schemas.v1.target_event_create import TargetEventCreate
 from lap_schemas.v1.target_event_list import TargetEventList
 from lap_schemas.v1.track_day_create import TrackDayCreate
@@ -138,6 +139,7 @@ __all__ = [
     "SkillDrilldown",
     "SkillTrendPoint",
     "TargetEvent",
+    "TargetEventCountdown",
     "TargetEventCreate",
     "TargetEventKind",
     "TargetEventList",
