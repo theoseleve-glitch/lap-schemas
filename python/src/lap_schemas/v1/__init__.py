@@ -56,6 +56,7 @@ from lap_schemas.v1.organization import (
     OrganizationCreate,
     OrganizationInvitation,
     OrganizationInvitationCreate,
+    OrganizationMembership,
     OrgInviteRole,
     OrgPlan,
 )
@@ -160,6 +161,7 @@ __all__ = [
     "OrganizationCreate",
     "OrganizationInvitation",
     "OrganizationInvitationCreate",
+    "OrganizationMembership",
     "OrgInviteRole",
     "OrgPlan",
     "PairingCreateResponse",

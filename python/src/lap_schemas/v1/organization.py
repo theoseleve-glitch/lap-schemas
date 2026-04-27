@@ -81,3 +81,18 @@ class OrganizationInvitation(BaseModel):
     token: str
     created_at: datetime
     expires_at: datetime
+
+
+class OrganizationMembership(BaseModel):
+    """Returned by T165's accept-invite endpoint. Carries the
+    new OrganizationMember row's identity + role so the client
+    can route to the org and reflect the user's permissions.
+    """
+
+    model_config = ConfigDict(frozen=True, extra="forbid")
+
+    id: UUID7
+    org_id: UUID7
+    user_id: UUID7
+    role: OrgInviteRole
+    created_at: datetime
