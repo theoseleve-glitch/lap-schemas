@@ -30,6 +30,10 @@ from lap_schemas.v1.coach_dashboard import (
     CoachDashboardResponse,
 )
 from lap_schemas.v1.coach_prescription import CoachPrescriptionCreate
+from lap_schemas.v1.coach_session_note import (
+    CoachSessionNote,
+    CoachSessionNoteCreate,
+)
 from lap_schemas.v1.coaching_rule import (
     CoachingRuleList,
     CoachingRulePublic,
@@ -151,6 +155,8 @@ __all__ = [
     "CoachDashboardDriverEntry",
     "CoachDashboardResponse",
     "CoachPrescriptionCreate",
+    "CoachSessionNote",
+    "CoachSessionNoteCreate",
     "CoachingRuleList",
     "CoachingRulePublic",
     "CohortSizeResponse",
