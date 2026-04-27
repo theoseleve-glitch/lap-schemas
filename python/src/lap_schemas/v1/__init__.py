@@ -68,6 +68,10 @@ from lap_schemas.v1.strategy_history import (
     StrategyHistoryList,
 )
 from lap_schemas.v1.strategy_plan import StrategyPlan, StrategyPlanCreate
+from lap_schemas.v1.strategy_simulate import (
+    StrategySimulateRequest,
+    StrategySimulateResponse,
+)
 from lap_schemas.v1.strategy_template import (
     StrategyTemplate,
     StrategyTemplateCreate,
@@ -164,6 +168,8 @@ __all__ = [
     "StrategyHistoryList",
     "StrategyPlan",
     "StrategyPlanCreate",
+    "StrategySimulateRequest",
+    "StrategySimulateResponse",
     "StrategyTemplate",
     "StrategyTemplateCreate",
     "StrategyTemplateList",
