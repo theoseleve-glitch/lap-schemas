@@ -65,6 +65,7 @@ from lap_schemas.v1.strategy_event import (
 )
 from lap_schemas.v1.strategy_plan import StrategyPlan, StrategyPlanCreate
 from lap_schemas.v1.strategy_timeline import StrategyTimelineResponse
+from lap_schemas.v1.strategy_visualization import StrategyVisualization
 from lap_schemas.v1.target_event_countdown import TargetEventCountdown
 from lap_schemas.v1.target_event_create import TargetEventCreate
 from lap_schemas.v1.target_event_list import TargetEventList
@@ -153,6 +154,7 @@ __all__ = [
     "StrategyPlan",
     "StrategyPlanCreate",
     "StrategyTimelineResponse",
+    "StrategyVisualization",
     "TargetEvent",
     "TargetEventCountdown",
     "TargetEventCreate",
