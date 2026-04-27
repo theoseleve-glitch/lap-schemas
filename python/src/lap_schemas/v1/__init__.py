@@ -57,6 +57,11 @@ from lap_schemas.v1.pairing import (
     PairingRedeemResponse,
 )
 from lap_schemas.v1.session import SessionDetail, SessionManifest
+from lap_schemas.v1.strategy_event import (
+    StrategyEvent,
+    StrategyEventCreate,
+    StrategyEventKind,
+)
 from lap_schemas.v1.strategy_plan import StrategyPlan, StrategyPlanCreate
 from lap_schemas.v1.target_event_countdown import TargetEventCountdown
 from lap_schemas.v1.target_event_create import TargetEventCreate
@@ -139,6 +144,9 @@ __all__ = [
     "SkillDimensionName",
     "SkillDrilldown",
     "SkillTrendPoint",
+    "StrategyEvent",
+    "StrategyEventCreate",
+    "StrategyEventKind",
     "StrategyPlan",
     "StrategyPlanCreate",
     "TargetEvent",
