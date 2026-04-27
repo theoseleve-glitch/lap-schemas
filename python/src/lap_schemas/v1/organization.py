@@ -96,3 +96,33 @@ class OrganizationMembership(BaseModel):
     user_id: UUID7
     role: OrgInviteRole
     created_at: datetime
+
+
+# Full role enum for list/listing-style shapes where admin
+# entries appear alongside coach/driver. Distinct from
+# OrgInviteRole, which excludes admin (admin transfer is not
+# part of the invite/redeem flow).
+OrgRole = Literal["admin", "coach", "driver"]
+
+
+class OrganizationMemberEntry(BaseModel):
+    """List-shape entry for T167's list-members endpoint.
+
+    Same column set as OrganizationMembership but `role` admits
+    the full {admin, coach, driver} space — listings include
+    admins, accept-invite responses don't.
+    """
+
+    model_config = ConfigDict(frozen=True, extra="forbid")
+
+    id: UUID7
+    org_id: UUID7
+    user_id: UUID7
+    role: OrgRole
+    created_at: datetime
+
+
+class OrganizationMemberList(BaseModel):
+    model_config = ConfigDict(frozen=True, extra="forbid")
+
+    entries: tuple[OrganizationMemberEntry, ...]
