@@ -57,6 +57,7 @@ from lap_schemas.v1.pairing import (
     PairingRedeemResponse,
 )
 from lap_schemas.v1.session import SessionDetail, SessionManifest
+from lap_schemas.v1.session_strategy_section import SessionStrategySection
 from lap_schemas.v1.strategy_event import (
     StrategyEvent,
     StrategyEventCreate,
@@ -142,6 +143,7 @@ __all__ = [
     "SessionIngestAccepted",
     "SessionManifest",
     "SessionScoreRef",
+    "SessionStrategySection",
     "SkillDimensionName",
     "SkillDrilldown",
     "SkillTrendPoint",

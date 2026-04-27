@@ -8,6 +8,7 @@ from lap_schemas.v1.environment import EnvironmentTag
 from lap_schemas.v1.ids import UUID7
 from lap_schemas.v1.objective import ObjectiveTag
 from lap_schemas.v1.sensor_config import SensorConfigSnapshot
+from lap_schemas.v1.session_strategy_section import SessionStrategySection
 from lap_schemas.v1.source import SourceTag
 
 CaptureApp = Literal["lap-coach-logger", "lap-mobile-ios", "lap-mobile-android"]
@@ -56,6 +57,7 @@ class SessionManifest(BaseModel):
     objective_tag: ObjectiveTag | None = None
     training_block_id: UUID7 | None = None
     endurance_event_id: UUID7 | None = None
+    strategy_section: SessionStrategySection | None = None
 
     started_at: datetime
     ended_at: datetime

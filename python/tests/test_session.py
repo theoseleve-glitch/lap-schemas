@@ -7,6 +7,7 @@ from lap_schemas.v1.environment import EnvironmentTag
 from lap_schemas.v1.objective import ObjectiveTag
 from lap_schemas.v1.sensor_config import SensorConfig, SensorConfigSnapshot
 from lap_schemas.v1.session import SessionManifest
+from lap_schemas.v1.session_strategy_section import SessionStrategySection
 
 
 def _minimal_quality() -> DataQuality:
@@ -166,6 +167,103 @@ def test_session_manifest_accepts_endurance_event_id_and_round_trips() -> None:
     encoded = original.model_dump_json()
     reloaded = SessionManifest.model_validate_json(encoded)
     assert reloaded.endurance_event_id == event_id
+    assert reloaded == original
+
+
+def test_session_manifest_strategy_section_defaults_to_none() -> None:
+    """T103 (sprint2-backend) — `strategy_section` is an optional
+    bundle-time pre-race plan declaration. Capture clients that
+    don't carry strategy intent (sprint sessions, free practice,
+    real-world track day data) MUST keep validating with no
+    strategy_section present. Pin the additive-non-breaking shape:
+    every previously-valid manifest must still validate, and
+    `.strategy_section` must read as None."""
+    manifest = SessionManifest(
+        session_id=uuid6.uuid7(),
+        driver_id=uuid6.uuid7(),
+        bundle_version="v2",
+        capture_app="lap-coach-logger",
+        capture_app_version="0.9.0",
+        device_model="Desktop",
+        device_os="Windows",
+        device_os_version="11",
+        source="iracing",
+        sim_title="iracing",
+        real_hardware=None,
+        car_id=uuid6.uuid7(),
+        track_id=uuid6.uuid7(),
+        track_layout="gp",
+        environment_tag=EnvironmentTag.SIM_PRACTICE,
+        objective_tag=ObjectiveTag.DRILL,
+        training_block_id=None,
+        started_at=datetime(2026, 4, 24, 10, 0, tzinfo=timezone.utc),
+        ended_at=datetime(2026, 4, 24, 10, 45, tzinfo=timezone.utc),
+        duration_seconds=2700.0,
+        telemetry_checksums={"samples.bin": "sha256:abc"},
+        total_samples=120000,
+        sample_rate_hz=60.0,
+        data_quality=_minimal_quality(),
+        sensor_config=SensorConfigSnapshot(),
+    )
+    assert manifest.strategy_section is None
+
+
+def test_session_manifest_accepts_strategy_section_and_round_trips() -> None:
+    """T103 (sprint2-backend) — when a session is recorded with a
+    pre-race strategy plan declared in the bundle, the
+    `strategy_section` carries (planned_stints, planned_fuel_liters,
+    planned_pit_laps). The bundle is the immutable record of intent
+    at recording time — distinct from T098's runtime POST endpoint,
+    which is mutable per-session state. Pin: the section must
+    survive a JSON round-trip with all three fields preserved
+    exactly, so the ingest pipeline can reconstruct the plan
+    server-side without lossy re-typing.
+
+    Mutation: dropping `strategy_section` from SessionManifest, or
+    failing to round-trip planned_pit_laps as a list of ints, would
+    silently drop the captured plan and break T103's bundle-driven
+    bootstrap of the StrategyPlan row."""
+    section = SessionStrategySection(
+        planned_stints=3,
+        planned_fuel_liters=82.5,
+        planned_pit_laps=[27, 54],
+    )
+    original = SessionManifest(
+        session_id=uuid6.uuid7(),
+        driver_id=uuid6.uuid7(),
+        bundle_version="v2",
+        capture_app="lap-coach-logger",
+        capture_app_version="0.9.0",
+        device_model="Desktop",
+        device_os="Linux",
+        device_os_version="6.1",
+        source="iracing",
+        sim_title="iracing",
+        real_hardware=None,
+        car_id=uuid6.uuid7(),
+        track_id=uuid6.uuid7(),
+        track_layout="gp",
+        environment_tag=EnvironmentTag.SIM_RACE,
+        objective_tag=ObjectiveTag.RACE_PREP,
+        training_block_id=None,
+        strategy_section=section,
+        started_at=datetime(2026, 4, 24, 18, 0, tzinfo=timezone.utc),
+        ended_at=datetime(2026, 4, 24, 22, 0, tzinfo=timezone.utc),
+        duration_seconds=14400.0,
+        telemetry_checksums={"samples.bin": "sha256:xyz"},
+        total_samples=864000,
+        sample_rate_hz=60.0,
+        data_quality=_minimal_quality(),
+        sensor_config=SensorConfigSnapshot(),
+    )
+    assert original.strategy_section == section
+    assert original.strategy_section is not None
+    assert original.strategy_section.planned_stints == 3
+    assert original.strategy_section.planned_fuel_liters == 82.5
+    assert original.strategy_section.planned_pit_laps == [27, 54]
+    encoded = original.model_dump_json()
+    reloaded = SessionManifest.model_validate_json(encoded)
+    assert reloaded.strategy_section == section
     assert reloaded == original
 
 
