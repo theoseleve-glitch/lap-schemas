@@ -29,6 +29,7 @@ from lap_schemas.v1.coach_dashboard import (
     CoachDashboardDriverEntry,
     CoachDashboardResponse,
 )
+from lap_schemas.v1.coach_prescription import CoachPrescriptionCreate
 from lap_schemas.v1.coaching_rule import (
     CoachingRuleList,
     CoachingRulePublic,
@@ -149,6 +150,7 @@ __all__ = [
     "CarCatalogPublic",
     "CoachDashboardDriverEntry",
     "CoachDashboardResponse",
+    "CoachPrescriptionCreate",
     "CoachingRuleList",
     "CoachingRulePublic",
     "CohortSizeResponse",
