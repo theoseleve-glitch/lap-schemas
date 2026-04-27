@@ -63,6 +63,10 @@ from lap_schemas.v1.strategy_event import (
     StrategyEventCreate,
     StrategyEventKind,
 )
+from lap_schemas.v1.strategy_history import (
+    StrategyHistoryEntry,
+    StrategyHistoryList,
+)
 from lap_schemas.v1.strategy_plan import StrategyPlan, StrategyPlanCreate
 from lap_schemas.v1.strategy_timeline import StrategyTimelineResponse
 from lap_schemas.v1.strategy_visualization import StrategyVisualization
@@ -151,6 +155,8 @@ __all__ = [
     "StrategyEvent",
     "StrategyEventCreate",
     "StrategyEventKind",
+    "StrategyHistoryEntry",
+    "StrategyHistoryList",
     "StrategyPlan",
     "StrategyPlanCreate",
     "StrategyTimelineResponse",
