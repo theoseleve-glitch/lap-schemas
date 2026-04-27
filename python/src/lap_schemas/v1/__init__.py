@@ -63,6 +63,7 @@ from lap_schemas.v1.next_actions import NextActionsResponse
 from lap_schemas.v1.org_metrics import OrgMetrics
 from lap_schemas.v1.organization import (
     Organization,
+    OrganizationBrandingUpdate,
     OrganizationCreate,
     OrganizationInvitation,
     OrganizationInvitationCreate,
@@ -176,6 +177,7 @@ __all__ = [
     "LapRecord",
     "NextActionsResponse",
     "Organization",
+    "OrganizationBrandingUpdate",
     "OrganizationCreate",
     "OrganizationInvitation",
     "OrganizationInvitationCreate",

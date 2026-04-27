@@ -62,6 +62,32 @@ class Organization(BaseModel):
     admin_user_id: UUID7
     seats_limit: int
     created_at: datetime
+    # T175 — admin-uploaded logo URL. None = no logo set; the
+    # client renders a default placeholder. URL hosting is the
+    # client's concern (data uri, CDN, S3, etc.); this field is
+    # storage-only.
+    branding_logo_url: str | None = None
+
+
+class OrganizationBrandingUpdate(BaseModel):
+    """T175 — admin updates branding metadata.
+
+    `branding_logo_url=None` is the explicit "clear" signal;
+    a missing key means "leave unchanged". With one field today,
+    PATCH and PUT are equivalent — the request shape exists as
+    a distinct type so future additions (custom_domain, theme,
+    etc.) drop in without breaking the existing shape.
+
+    `min_length=1` on the string variant rejects empty strings
+    (use None to clear instead). 2048 is the conservative
+    HTTP URL ceiling.
+    """
+
+    model_config = ConfigDict(frozen=True, extra="forbid")
+
+    branding_logo_url: str | None = Field(
+        default=None, min_length=1, max_length=2048
+    )
 
 
 class OrganizationInvitationCreate(BaseModel):
