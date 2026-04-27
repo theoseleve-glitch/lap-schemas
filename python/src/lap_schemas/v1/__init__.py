@@ -60,6 +60,7 @@ from lap_schemas.v1.endurance_history import (
 )
 from lap_schemas.v1.lap_record import LapRecord
 from lap_schemas.v1.next_actions import NextActionsResponse
+from lap_schemas.v1.org_metrics import OrgMetrics
 from lap_schemas.v1.organization import (
     Organization,
     OrganizationCreate,
@@ -182,6 +183,7 @@ __all__ = [
     "OrganizationMemberList",
     "OrganizationMembership",
     "OrgInviteRole",
+    "OrgMetrics",
     "OrgPlan",
     "OrgRole",
     "PairingCreateResponse",
