@@ -25,6 +25,10 @@ from lap_schemas.v1.bridge_suggest import (
     BridgeSuggestLinkList,
 )
 from lap_schemas.v1.car_catalog import CarCatalogList, CarCatalogPublic
+from lap_schemas.v1.coach_dashboard import (
+    CoachDashboardDriverEntry,
+    CoachDashboardResponse,
+)
 from lap_schemas.v1.coaching_rule import (
     CoachingRuleList,
     CoachingRulePublic,
@@ -143,6 +147,8 @@ __all__ = [
     "BridgeSuggestLinkList",
     "CarCatalogList",
     "CarCatalogPublic",
+    "CoachDashboardDriverEntry",
+    "CoachDashboardResponse",
     "CoachingRuleList",
     "CoachingRulePublic",
     "CohortSizeResponse",
