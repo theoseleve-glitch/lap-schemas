@@ -36,7 +36,7 @@ infrastructure piece; email send is a later task).
 from datetime import datetime
 from typing import Literal
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 from lap_schemas.v1.ids import UUID7
 
@@ -95,6 +95,18 @@ class OrganizationInvitationCreate(BaseModel):
 
     email: str = Field(min_length=3, max_length=320, pattern=_EMAIL_REGEX)
     role: OrgInviteRole
+
+    @field_validator("email", mode="before")
+    @classmethod
+    def _normalize_email(cls, v: object) -> object:
+        # Strip+lowercase at the boundary so a pasted-with-trailing-
+        # space or case-mismatched email ('Alice@x.com ' invite vs
+        # 'alice@x.com' user) cannot 403 the recipient at accept-
+        # time. Non-string input is passed through so Pydantic
+        # raises the right type error rather than masking it.
+        if isinstance(v, str):
+            return v.strip().lower()
+        return v
 
 
 class OrganizationInvitation(BaseModel):
